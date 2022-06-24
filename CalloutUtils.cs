@@ -111,29 +111,12 @@ namespace Custom_Callouts
             PedHash.Hunter,
             PedHash.Salton01AMY
         };
-        static readonly List<PedHash> shooters = new List<PedHash>(){
-            PedHash.Ammucity01SMY,
-            PedHash.CustomerCutscene,
-            PedHash.Blackops01SMY,
-            PedHash.Blackops01SMY,
-            PedHash.Robber01SMY,
-            PedHash.PrologueHostage01,
-            PedHash.CletusCutscene,
-            PedHash.Hunter,
-            PedHash.Salton01AMY
-        };
-        static readonly List<PedHash> special = new List<PedHash>(){
-            PedHash.MimeSMY,
-            PedHash.Jesus01,
-        }; //Just for fun
 
-        internal static Ped GetNearestPlayer(Ped shooter, List<Ped> playersToShoot)
-        {
+        internal static Ped GetNearestPlayer(Ped shooter, List<Ped> playersToShoot){
             return playersToShoot.OrderBy(x => World.GetDistance(x.Position, shooter.Position)).FirstOrDefault();
         }
 
-        internal static Ped GetNearestPed(Ped p, List<Ped> ignoreList)
-        {
+        internal static Ped GetNearestPed(Ped p, List<Ped> ignoreList){
             Dictionary<Ped, float> closePeds = new Dictionary<Ped, float>();
 
             //Get all peds in the world and checks if they are players or if they are in the ignore list and are alive
@@ -142,8 +125,7 @@ namespace Custom_Callouts
                 .ForEach(ped => closePeds.Add(ped, (World.GetDistance(ped.Position, p.Position))));
 
             //No peds return null
-            if (closePeds.Count == 0)
-            {
+            if (closePeds.Count == 0){
                 return null;
             }
 
@@ -151,8 +133,7 @@ namespace Custom_Callouts
             return closePeds.OrderBy(distance => distance.Value).FirstOrDefault().Key;
         }
 
-        internal static Vector3 GetRandomPOS(int min = 200, int max = 650)
-        {
+        internal static Vector3 GetRandomPOS(int min = 200, int max = 650){
             Random rand = new Random();
 
             int distance = rand.Next(min, max);
@@ -162,13 +143,8 @@ namespace Custom_Callouts
             return new Vector3(offsetX, offsetY, 0);
         }
 
-        internal static PedHash GetRandomPedHash(string role)
-        {
-            switch (role)
-            {
-                case "shooter":
-                    return shooters.SelectRandom();
-
+        internal static PedHash GetRandomPedHash(string role){
+            switch (role){
                 case "victim":
                     return victims.SelectRandom();
 
